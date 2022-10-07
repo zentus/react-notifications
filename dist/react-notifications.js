@@ -792,7 +792,8 @@ var Notification_Notification = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this$props = this.props,
           type = _this$props.type,
-          message = _this$props.message;
+          message = _this$props.message,
+          nodeRef = _this$props.nodeRef;
       var title = this.props.title;
       var className = classnames_default()(['notification', "notification-".concat(type)]);
       title = title ? /*#__PURE__*/external_root_React_commonjs_react_commonjs2_react_amd_react_default.a.createElement("h4", {
@@ -800,7 +801,8 @@ var Notification_Notification = /*#__PURE__*/function (_React$Component) {
       }, title) : null;
       return /*#__PURE__*/external_root_React_commonjs_react_commonjs2_react_amd_react_default.a.createElement("div", {
         className: className,
-        onClick: this.handleClick
+        onClick: this.handleClick,
+        ref: nodeRef
       }, /*#__PURE__*/external_root_React_commonjs_react_commonjs2_react_amd_react_default.a.createElement("div", {
         className: "notification-message",
         role: "alert"
@@ -818,6 +820,9 @@ _defineProperty(Notification_Notification, "propTypes", {
   title: external_root_PropTypes_commonjs_prop_types_commonjs2_prop_types_amd_prop_types_default.a.node,
   message: external_root_PropTypes_commonjs_prop_types_commonjs2_prop_types_amd_prop_types_default.a.node,
   timeOut: external_root_PropTypes_commonjs_prop_types_commonjs2_prop_types_amd_prop_types_default.a.number,
+  nodeRef: external_root_PropTypes_commonjs_prop_types_commonjs2_prop_types_amd_prop_types_default.a.shape({
+    current: external_root_PropTypes_commonjs_prop_types_commonjs2_prop_types_amd_prop_types_default.a.instanceOf(Element)
+  }),
   onClick: external_root_PropTypes_commonjs_prop_types_commonjs2_prop_types_amd_prop_types_default.a.func,
   onRequestHide: external_root_PropTypes_commonjs_prop_types_commonjs2_prop_types_amd_prop_types_default.a.func
 });
@@ -827,6 +832,9 @@ _defineProperty(Notification_Notification, "defaultProps", {
   title: null,
   message: null,
   timeOut: 5000,
+  nodeRef: {
+    current: null
+  },
   onClick: function onClick() {},
   onRequestHide: function onRequestHide() {}
 });
@@ -912,12 +920,14 @@ var Notifications_Notifications = /*#__PURE__*/function (_React$Component) {
           timeout: {
             enter: enterTimeout,
             exit: leaveTimeout
-          }
+          },
+          nodeRef: notification.nodeRef
         }, /*#__PURE__*/external_root_React_commonjs_react_commonjs2_react_amd_react_default.a.createElement(src_Notification, {
           type: notification.type,
           title: notification.title,
           message: notification.message,
           timeOut: notification.timeOut,
+          nodeRef: notification.nodeRef,
           onClick: notification.onClick,
           onRequestHide: _this2.handleRequestHide(notification)
         }));
@@ -974,6 +984,7 @@ function NotificationManager_getPrototypeOf(o) { NotificationManager_getPrototyp
 
 
 
+
 var createUUID = function createUUID() {
   var pattern = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx';
   return pattern.replace(/[xy]/g, function (c) {
@@ -991,7 +1002,7 @@ var Constants = {
   ERROR: 'error'
 };
 
-var NotificationManager = /*#__PURE__*/function (_EventEmitter) {
+var NotificationManager_NotificationManager = /*#__PURE__*/function (_EventEmitter) {
   NotificationManager_inherits(NotificationManager, _EventEmitter);
 
   var _super = NotificationManager_createSuper(NotificationManager);
@@ -1014,7 +1025,8 @@ var NotificationManager = /*#__PURE__*/function (_EventEmitter) {
         type: 'info',
         title: null,
         message: null,
-        timeOut: 5000
+        timeOut: 5000,
+        nodeRef: /*#__PURE__*/external_root_React_commonjs_react_commonjs2_react_amd_react_default.a.createRef()
       };
 
       if (notify.priority) {
@@ -1107,7 +1119,7 @@ var NotificationManager = /*#__PURE__*/function (_EventEmitter) {
   return NotificationManager;
 }(events["EventEmitter"]);
 
-/* harmony default export */ var src_NotificationManager = (new NotificationManager());
+/* harmony default export */ var src_NotificationManager = (new NotificationManager_NotificationManager());
 // CONCATENATED MODULE: ./src/NotificationContainer.js
 function NotificationContainer_typeof(obj) { "@babel/helpers - typeof"; return NotificationContainer_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, NotificationContainer_typeof(obj); }
 
